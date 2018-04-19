@@ -114,7 +114,7 @@
         </section>
 
         <section id="tool-info" >
-            <h3 class="table-header">Available Tools/Equipment</h3>
+            <h3 class="table-header">Available Tools</h3>
             <h:form class="table-header">
                 <h:panelGroup class="input-group">
                     <h:inputText class="form-control" value='#{clerkPortalController.toolId}'>
@@ -126,7 +126,7 @@
                 </h:panelGroup>
             </h:form>
             <h:form class="table-header">
-                <h:commandButton class="add btn btn-success btn-sm" action="#{clerkPortalController.doCreateTool()}" value="New Tool/Equipment"/>
+                <h:commandButton class="add btn btn-success btn-sm" action="#{clerkPortalController.doCreateTool()}" value="New Tool"/>
             </h:form>
             <h:dataTable class="table table-hover" value="#{clerkPortalController.tool}" var="tool">
                 <h:column>

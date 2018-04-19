@@ -42,9 +42,9 @@
                 </h:inputText>
             </h:panelGroup>
             <h:panelGroup layout="block" class="form-group">
-                <h:outputLabel for="equipmentId" value="Equipment ID" />
-                <h:selectOneMenu class="form-control" id="equipmentId" value="#{cc.attrs.maintenance.equipment}" disabled="#{cc.attrs.readonly ? 'true' : 'false'}" converter="equipmentConverter">
-                    <f:selectItems value="#{equipmentService.findAll()}" var="equipment" itemLabel="#{equipment.serialNumber}" itemValue="#{equipment}" />
+                <h:outputLabel for="partId" value="Part ID" />
+                <h:selectOneMenu class="form-control" id="partId" value="#{cc.attrs.maintenance.parts}" disabled="#{cc.attrs.readonly ? 'true' : 'false'}" converter="equipmentConverter">
+                    <f:selectItems value="#{partsService.findAll()}" var="part" itemLabel="#{part.serialNumber}" itemValue="#{part}" />
                 </h:selectOneMenu>    
             </h:panelGroup>
             <h:button class="btn btn-default" outcome="/clerk/welcome.xhtml" value="Back" />
