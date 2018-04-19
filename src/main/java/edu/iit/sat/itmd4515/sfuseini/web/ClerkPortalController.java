@@ -6,10 +6,10 @@
 package edu.iit.sat.itmd4515.sfuseini.web;
 
 import edu.iit.sat.itmd4515.sfuseini.domain.Parts;
-import edu.iit.sat.itmd4515.sfuseini.domain.Maintenance;
+import edu.iit.sat.itmd4515.sfuseini.domain.Repairs;
 import edu.iit.sat.itmd4515.sfuseini.domain.Tool;
 import edu.iit.sat.itmd4515.sfuseini.ejb.PartsService;
-import edu.iit.sat.itmd4515.sfuseini.ejb.MaintenanceService;
+import edu.iit.sat.itmd4515.sfuseini.ejb.RepairsService;
 import edu.iit.sat.itmd4515.sfuseini.ejb.ToolService;
 import java.util.List;
 import java.util.logging.Logger;
@@ -34,15 +34,15 @@ public class ClerkPortalController extends BaseController {
     @EJB
     private ToolService toolService;
     @EJB
-    private MaintenanceService maintenanceService;
+    private RepairsService repairsService;
 
-    private List<Maintenance> maintenance;
+    private List<Repairs> repairs;
     private List<Tool> tool;
     private List<Parts> parts;
-    private Maintenance singleMaintenance;
+    private Repairs singleRepair;
     private Parts singlePart;
     private Tool singleTool;
-    private int maintenanceId;
+    private int repairId;
     private int toolId;
     private int partId;
 
@@ -59,25 +59,25 @@ public class ClerkPortalController extends BaseController {
     @PostConstruct
     public void postConstruct() {
         super.postConstruct(); //To change body of generated methods, choose Tools | Templates.
-        maintenance = maintenanceService.findAll();
+        repairs = repairsService.findAll();
         parts = partsService.findAll();
         tool = toolService.findAll();
-        this.singleMaintenance = new Maintenance();
+        this.singleRepair = new Repairs();
         this.singlePart = new Parts();
         this.singleTool = new Tool();
     }
 
     //<----------Action Methods -------------->
-    //<----- maintenance---->
+    //<----- repairs---->
 
     /**
      *
      * @return
      */
-    public String doCreateMaintenance() {
-        this.singleMaintenance = new Maintenance();
-        LOG.info("calling create method" + singleMaintenance.toString());
-        return "/clerk/updateMaintenance.xhtml";
+    public String doCreateRepair() {
+        this.singleRepair = new Repairs();
+        LOG.info("calling create method" + singleRepair.toString());
+        return "/clerk/updateRepair.xhtml";
     }
 
     /**
@@ -85,10 +85,10 @@ public class ClerkPortalController extends BaseController {
      * @param m
      * @return
      */
-    public String doViewMaintenance(Maintenance m) {
-        this.singleMaintenance = m;
-        LOG.info("calling view method" + singleMaintenance.toString());
-        return "/clerk/viewMaintenance.xhtml";
+    public String doViewRepair(Repairs r) {
+        this.singleRepair = r;
+        LOG.info("calling view method" + singleRepair.toString());
+        return "/clerk/viewRepair.xhtml";
     }
 
     /**
@@ -96,51 +96,51 @@ public class ClerkPortalController extends BaseController {
      * @param m
      * @return
      */
-    public String doUpdateMaintenance(Maintenance m) {
-        this.singleMaintenance = m;
-        LOG.info("calling update method" + singleMaintenance.toString());
-        return "/clerk/updateMaintenance.xhtml";
+    public String doUpdateRepair(Repairs r) {
+        this.singleRepair = r;
+        LOG.info("calling update method" + singleRepair.toString());
+        return "/clerk/updateRepair.xhtml";
     }
 
     /**
      *
      * @return
      */
-    public String doExecuteMaintenanceUpdate() {
-        if (this.singleMaintenance.getId() != null) {
-            LOG.info("calling execute update method" + singleMaintenance.toString());
-            maintenanceService.update(singleMaintenance);
-            maintenance = maintenanceService.findAll();
+    public String doExecuteRepairUpdate() {
+        if (this.singleRepair.getId() != null) {
+            LOG.info("calling execute update method" + singleRepair.toString());
+            repairsService.update(singleRepair);
+            repairs = repairsService.findAll();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Update Successful!", "Successfully updated maintenance ID#"
-                    + singleMaintenance.getId()));
+                    "Update Successful!", "Successfully updated repair ID#"
+                    + singleRepair.getId()));
         } else {
-            LOG.info("calling execute employee create method" + singleMaintenance.toString());
-            maintenanceService.create(singleMaintenance);
-            maintenance = maintenanceService.findAll();
+            LOG.info("calling execute employee create method" + singleRepair.toString());
+            repairsService.create(singleRepair);
+            repairs = repairsService.findAll();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Success!", "Successfully added maintenance ID# "
-                    + singleMaintenance.getId()));
+                    "Success!", "Successfully added repair ID# "
+                    + singleRepair.getId()));
         }
         return "/clerk/welcome.xhtml";
     }
 
     /**
      *
-     * @param maintenanceId
+     * @param repairId
      * @return
      */
-    public String doFindMaintenance(int maintenanceId) {
-        maintenanceId = this.maintenanceId;
+    public String doFindRepair(int repairId) {
+        repairId = this.repairId;
         try {
-            this.singleMaintenance = maintenanceService.findByMaintenanceId(maintenanceId);
+            this.singleRepair = repairsService.findByRepairId(repairId);
         } catch (Exception e) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "No maintenance entry found!", "This entry does not exist."));
+                    "No repair entry found!", "This entry does not exist."));
             externalContext.getFlash().setKeepMessages(true);
             return "/clerk/welcome.xhtml?faces-redirect=true\"";
         }
-        return "/clerk/viewMaintenance.xhtml";
+        return "/clerk/viewRepair.xhtml";
     }
 
     //<-------------------- Tool--------------------------->
@@ -339,16 +339,16 @@ public class ClerkPortalController extends BaseController {
      *
      * @return
      */
-    public List<Maintenance> getMaintenance() {
-        return maintenance;
+    public List<Repairs> getRepairs() {
+        return repairs;
     }
 
     /**
      *
-     * @param maintenance
+     * @param repairs
      */
-    public void setMaintenance(List<Maintenance> maintenance) {
-        this.maintenance = maintenance;
+    public void setRepairs(List<Repairs> repairs) {
+        this.repairs = repairs;
     }
 
     /**
@@ -387,16 +387,16 @@ public class ClerkPortalController extends BaseController {
      *
      * @return
      */
-    public Maintenance getSingleMaintenance() {
-        return singleMaintenance;
+    public Repairs getSingleRepair() {
+        return singleRepair;
     }
 
     /**
      *
-     * @param singleMaintenance
+     * @param singleRepair
      */
-    public void setSingleMaintenance(Maintenance singleMaintenance) {
-        this.singleMaintenance = singleMaintenance;
+    public void setSingleRepair(Repairs singleRepair) {
+        this.singleRepair = singleRepair;
     }
 
     /**
@@ -435,16 +435,16 @@ public class ClerkPortalController extends BaseController {
      *
      * @return
      */
-    public int getMaintenanceId() {
-        return maintenanceId;
+    public int getRepairId() {
+        return repairId;
     }
 
     /**
      *
-     * @param maintenanceId
+     * @param repairId
      */
-    public void setMaintenanceId(int maintenanceId) {
-        this.maintenanceId = maintenanceId;
+    public void setRepairId(int repairId) {
+        this.repairId = repairId;
     }
 
     /**

@@ -54,7 +54,7 @@ public class Parts {
     private Date purchaseDate;
 
     @OneToOne(mappedBy = "parts", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-    private Maintenance maintenance;
+    private Repairs repairs;
 
     /**
      *
@@ -278,16 +278,16 @@ public class Parts {
      *
      * @return
      */
-    public Maintenance getMaintenance() {
-        return maintenance;
+    public Repairs getRepairs() {
+        return repairs;
     }
 
     /**
      *
-     * @param maintenance
+     * @param repairs
      */
-    public void setMaintenance(Maintenance maintenance) {
-        this.maintenance = maintenance;
+    public void setRepairs(Repairs repairs) {
+        this.repairs = repairs;
     }
     
 

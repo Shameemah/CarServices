@@ -9,11 +9,11 @@
     </ui:define>
 
     <ui:define name="content">
-        <ezcomp:maintenance
-            maintenance="#{clerkPortalController.singleMaintenance}"
+        <ezcomp:repairs
+            repair="#{clerkPortalController.singleRepair}"
             readonly="false"
             disabled="false"
-            action="#{clerkPortalController.doExecuteMaintenanceUpdate()}"/>
+            action="#{clerkPortalController.doExecuteRepairUpdate()}"/>
     </ui:define>
 
 </ui:composition>

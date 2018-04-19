@@ -4,7 +4,7 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>edu.iit.sat.itmd4515.sfuseini.domain.Employee</class>
     <class>edu.iit.sat.itmd4515.sfuseini.domain.Parts</class>
-    <class>edu.iit.sat.itmd4515.sfuseini.domain.Maintenance</class>
+    <class>edu.iit.sat.itmd4515.sfuseini.domain.Repairs</class>
     <class>edu.iit.sat.itmd4515.sfuseini.domain.Department</class>
     <class>edu.iit.sat.itmd4515.sfuseini.domain.Tool</class>
     <class>edu.iit.sat.itmd4515.sfuseini.domain.Checkout</class>

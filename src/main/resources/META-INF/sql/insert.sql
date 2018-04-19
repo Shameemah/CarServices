@@ -36,7 +36,7 @@ insert into tool(serialnumber, brandname, category, model, type) values(145273, 
 insert into tool(serialnumber, brandname, category, model, type) values(4237, "Hakko", "Cutting", "CHP170", "Plier");
 insert into tool(serialnumber, brandname, category, model, type) values(12345, "Narex", "Cutting", "N6783", "Chisel");
 
-insert into maintenance(id, duedate, maintenancedone, reminderdate, part_id) values(1, "2017-05-22", 0, "2017-05-20", 256712);
-insert into maintenance(id, duedate, maintenancedone, reminderdate, part_id) values(2, "2017-08-08", 0, "2017-08-03", 2367472);
+insert into repairs(id, carplatenumber, repairdescription, dropoffdate, pickupdate, repaircompleted, part_id) values(1, "AG23343", "Broken radio", "2017-05-22", "2017-05-29", 1, 256712);
+insert into repairs(id, carplatenumber, repairdescription, dropoffdate, pickupdate, repaircompleted, part_id) values(2, "AH56347", "Broken mirror", "2018-04-04", "2018-04-05", 1, 16894536728);
 
 

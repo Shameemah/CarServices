@@ -12,52 +12,50 @@
 
     <ui:define name="content">
         <h2 class="portal-header">Welcome #{loginController.remoteUser}<small>You can view, add and edit tools, equipment, car parts and car service info here</small></h2>
-        <section id="maintenance-info" >
+        <section id="repair-info" >
             <h3 class="table-header">Car Repair Information</h3>
             <h:form class="table-header">
                 <h:panelGroup class="input-group">
-                    <h:inputText class="form-control" value='#{clerkPortalController.maintenanceId}'>
-                        <f:passThroughAttribute name="placeholder" value="Enter maintenance id..."/>
+                    <h:inputText class="form-control" value='#{clerkPortalController.repairId}'>
+                        <f:passThroughAttribute name="placeholder" value="Enter repair id..."/>
                     </h:inputText>
                     <span class="input-group-btn">
-                        <h:commandButton class="btn btn-primary" value="Search Maintenance!" action='#{clerkPortalController.doFindMaintenance(maintenanceId)}'/>
+                        <h:commandButton class="btn btn-primary" value="Search Repairs!" action='#{clerkPortalController.doFindRepair(repairId)}'/>
                     </span>
                 </h:panelGroup>
             </h:form>
             <h:form class="table-header">
-                <h:commandButton class="add btn btn-success btn-sm" action="#{clerkPortalController.doCreateMaintenance()}" value="New Maintenance Entry"/>
+                <h:commandButton class="add btn btn-success btn-sm" action="#{clerkPortalController.doCreateRepair()}" value="New Repair Entry"/>
             </h:form>
-            <h:dataTable class="table table-hover" value="#{clerkPortalController.maintenance}" var="maintenance">
+            <h:dataTable class="table table-hover" value="#{clerkPortalController.repairs}" var="repair">
                 <h:column>
                     <f:facet name="header">
-                        <h:outputText value="MAINTENANCE ID" />
+                        <h:outputText value="REPAIR ID" />
                     </f:facet>
-                    <h:outputText value="#{maintenance.id}" />
+                    <h:outputText value="#{repair.id}" />
                 </h:column>
                 <h:column>
                     <f:facet name="header">
-                        <h:outputText value="PART ID" />
+                        <h:outputText value="CAR PLATE NUMBER" />
                     </f:facet>
-                    <h:outputText value="#{maintenance.parts.serialNumber}" />
+                    <h:outputText value="#{repair.carPlateNumber}" />
                 </h:column>
                 <h:column>
                     <f:facet name="header">
-                        <h:outputText value="DUE DATE" />
+                        <h:outputText value="REPAIR DESCRIPTION" />
                     </f:facet>
-                    <h:outputText value="#{maintenance.dueDate}">
-                        <f:convertDateTime pattern="yyyy-MM-dd"/>
-                    </h:outputText>
+                    <h:outputText value="#{repair.repairDescription}" />
                 </h:column>
                 <h:column>
                     <f:facet name="header">
-                        <h:outputText value="MAINTENANCE DONE?" />
+                        <h:outputText value="REPAIR COMPLETED?" />
                     </f:facet>
-                    <h:outputText value="#{maintenance.maintenanceDone ? 'Yes' : 'No'}" />
+                    <h:outputText value="#{repair.repairCompleted ? 'Yes' : 'No'}" />
                 </h:column>
                 <h:column>
                     <h:form>
-                        <h:commandButton class="edit btn btn-default btn-xs" action="#{clerkPortalController.doUpdateMaintenance(maintenance)}" value="Edit"/>
-                        <h:commandButton class="view btn btn-default btn-xs" action="#{clerkPortalController.doViewMaintenance(maintenance)}" value="View"/>
+                        <h:commandButton class="edit btn btn-default btn-xs" action="#{clerkPortalController.doUpdateRepair(repair)}" value="Edit"/>
+                        <h:commandButton class="view btn btn-default btn-xs" action="#{clerkPortalController.doViewRepair(repair)}" value="View"/>
                     </h:form>
                 </h:column>
             </h:dataTable>

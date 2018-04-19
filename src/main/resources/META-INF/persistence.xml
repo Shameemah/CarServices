@@ -3,13 +3,13 @@
   <persistence-unit name="itmd4515PU" transaction-type="JTA">
     <jta-data-source>jdbc/itmd4515DS</jta-data-source>
     <class>edu.iit.sat.itmd4515.sfuseini.domain.Tool</class>
-    <class>edu.iit.sat.itmd4515.sfuseini.domain.Maintenance</class>
     <class>edu.iit.sat.itmd4515.sfuseini.domain.security.Group</class>
     <class>edu.iit.sat.itmd4515.sfuseini.domain.security.User</class>
     <class>edu.iit.sat.itmd4515.sfuseini.domain.Checkout</class>
     <class>edu.iit.sat.itmd4515.sfuseini.domain.Department</class>
     <class>edu.iit.sat.itmd4515.sfuseini.domain.Employee</class>
     <class>edu.iit.sat.itmd4515.sfuseini.domain.Parts</class>
+    <class>edu.iit.sat.itmd4515.sfuseini.domain.Repairs</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="eclipselink.logging.level" value="INFO"/>
