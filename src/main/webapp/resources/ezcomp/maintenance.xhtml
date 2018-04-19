@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="maintenance" required="true" type="edu.iit.sat.itmd4515.sfuseini.domain.Maintenance"/>
+        <cc:attribute name="readonly" type="java.lang.Boolean" default="true" required="false"/>
+        <cc:attribute name="disabled" type="java.lang.Boolean" default="true" required="false"/>
+        <cc:attribute name="action" required="false" method-signature="java.lang.String action()"/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:form>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel rendered="#{cc.attrs.readonly}" for="maintenanceId" value="Maintenance ID" />
+                <h:inputText rendered="#{cc.attrs.readonly}" class="form-control" id="maintenanceIdLabel" readonly="true" value="#{cc.attrs.maintenance.id}"/>
+                <h:inputHidden class="form-control" id="maintenanceId" value="#{cc.attrs.maintenance.id}"/>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="dueDate" value="Due date" />
+                <h:inputText class="form-control" id="dueDate" readonly="#{cc.attrs.readonly ? 'true' : 'false'}" value="#{cc.attrs.maintenance.dueDate}" a:placeholer="yyyy-MM-dd">
+                    <f:convertDateTime pattern="yyyy-MM-dd"/>
+                </h:inputText>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="maintenanceDone" value="Maintenance Done?" />
+                <h:selectOneMenu class="form-control" id="maintenanceDone" value="#{cc.attrs.maintenance.maintenanceDone}" disabled="#{cc.attrs.readonly ? 'true' : 'false'}">
+                    <f:selectItem itemLabel="No" itemValue="#{maintenance.maintenanceDone}" />
+                    <f:selectItem itemLabel="Yes" itemValue="#{not maintenance.maintenanceDone}" />
+                </h:selectOneMenu>    
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="reminderDate" value="Reminder date" />
+                <h:inputText class="form-control" id="reminderDate" readonly="#{cc.attrs.readonly ? 'true' : 'false'}" value="#{cc.attrs.maintenance.reminderDate}" a:placeholer="yyyy-MM-dd">
+                    <f:convertDateTime pattern="yyyy-MM-dd"/>
+                </h:inputText>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="equipmentId" value="Equipment ID" />
+                <h:selectOneMenu class="form-control" id="equipmentId" value="#{cc.attrs.maintenance.equipment}" disabled="#{cc.attrs.readonly ? 'true' : 'false'}" converter="equipmentConverter">
+                    <f:selectItems value="#{equipmentService.findAll()}" var="equipment" itemLabel="#{equipment.serialNumber}" itemValue="#{equipment}" />
+                </h:selectOneMenu>    
+            </h:panelGroup>
+            <h:button class="btn btn-default" outcome="/clerk/welcome.xhtml" value="Back" />
+            <h:commandButton rendered="#{not cc.attrs.readonly}" class="btn btn-success" action="#{cc.attrs.action}" value="Save Changes" />
+        </h:form>
+    </cc:implementation>
+</html>

@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="tool" required="true" type="edu.iit.sat.itmd4515.sfuseini.domain.Tool"/> 
+        <cc:attribute name="readonly" type="java.lang.Boolean" default="true" required="false"/>
+        <cc:attribute name="disabled" type="java.lang.Boolean" default="true" required="false"/>
+        <cc:attribute name="action" required="false" method-signature="java.lang.String action()"/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:form>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="toolId" value="Serial Number" />
+                <h:inputText class="form-control" id="toolId" disabled="#{cc.attrs.disabled ? 'true' : 'false'}" readonly="#{cc.attrs.readonly ? 'true' : 'false'}" value="#{cc.attrs.tool.serialNumber}"/>
+                <h:inputHidden rendered="#{cc.attrs.disabled}" class="form-control" id="toolIdHidden" value="#{cc.attrs.tool.serialNumber}"/>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="brandName" value="Brand Name" />
+                <h:inputText class="form-control" id="brandName" readonly="#{cc.attrs.readonly ? 'true' : 'false'}" value="#{cc.attrs.tool.brandName}"/>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="category" value="Category" />
+                <h:selectOneMenu class="form-control" id="category" value="#{cc.attrs.tool.category}" disabled="#{cc.attrs.readonly ? 'true' : 'false'}">
+                    <f:selectItem itemLabel="Crimpers and Strippers" itemValue="Crimpers and Strippers" />
+                    <f:selectItem itemLabel="Cutting" itemValue="Cutting" />
+                    <f:selectItem itemLabel="Hammers and Mallets" itemValue="Hammers and Mallets" />
+                    <f:selectItem itemLabel="Pliers" itemValue="Pliers" />
+                    <f:selectItem itemLabel="Plumbing" itemValue="Plumbing" />
+                    <f:selectItem itemLabel="Prying and Scraping" itemValue="Prying and Scraping" />
+                    <f:selectItem itemLabel="Punch" itemValue="Punch" />
+                    <f:selectItem itemLabel="Screwdrivers" itemValue="Screwdrivers" />
+                    <f:selectItem itemLabel="Tap and Die" itemValue="Tap and Die" />
+                    <f:selectItem itemLabel="Wrenches" itemValue="Wrenches" />
+                    <f:selectItem itemLabel="Other" itemValue="Other" />
+                </h:selectOneMenu>    
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="type" value="Type" />
+                <h:inputText class="form-control" id="type" readonly="#{cc.attrs.readonly ? 'true' : 'false'}" value="#{cc.attrs.tool.type}"/>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="model" value="Model" />
+                <h:inputText class="form-control" id="model" readonly="#{cc.attrs.readonly ? 'true' : 'false'}" value="#{cc.attrs.tool.model}"/>
+            </h:panelGroup>
+            <h:button class="btn btn-default" outcome="/clerk/welcome.xhtml" value="Back" />
+            <h:commandButton rendered="#{not cc.attrs.readonly}" class="btn btn-success" action="#{cc.attrs.action}" value="Save Changes" />
+        </h:form>
+    </cc:implementation>
+</html>

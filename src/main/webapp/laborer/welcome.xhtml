@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../WEB-INF/templates/authenticatedTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://xmlns.jcp.org/jsf"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="title">
+        Laborer Portal
+    </ui:define>
+
+    <ui:define name="content">
+        <h2 class="portal-header">Welcome #{loginController.remoteUser}<small>You can checkout tools and equipment, and view the checkout table here.</small></h2>
+        <h3 id="note">Please pick up your tool from the shop before you check out.</h3>
+        <h:panelGroup id="checkout-form">
+            <h:form>
+                <h3 class="table-header">Tool/Equipment Checkout</h3>
+                <h:panelGroup layout="block" class="form-group">
+                    <h:outputLabel rendered="false" for="checkoutId" value="Checkout ID" />
+                    <h:inputText rendered="false" class="form-control" id="checkoutId" value="#{laborerPortalController.singleCheckout.id}"/>
+                </h:panelGroup>
+                <h:panelGroup layout="block" class="form-group">
+                    <h:outputLabel for="checkoutDate" value="Checkout date" />
+                    <h:inputText readonly="true" class="form-control" id="checkoutDate" value="#{laborerPortalController.singleCheckout.checkoutDate}">
+                        <f:convertDateTime type="both" pattern="yyyy-MM-dd hh:mm:ss.SS" />
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup layout="block" class="form-group">
+                    <h:outputLabel rendered="false" for="returnDate" value="Return date" />
+                    <h:inputText rendered="false" class="form-control" id="returnDate" value="#{laborerPortalController.singleCheckout.returnDate}">
+                        <f:convertDateTime type="both" pattern="yyyy-MM-dd hh:mm:ss.SS" />
+                    </h:inputText>
+                </h:panelGroup>
+                <h:panelGroup layout="block" class="form-group">
+                    <h:outputLabel  for="toolId" value="Tool/Equipment ID" />
+                    <h:selectOneMenu class="form-control" id="toolId" value="#{laborerPortalController.singleCheckout.tool}" converter="toolConverter">
+                        <f:selectItems value="#{toolService.findAll()}" var="tool" itemLabel="#{tool.serialNumber}" itemValue="#{tool}" />
+                    </h:selectOneMenu>    
+                </h:panelGroup>
+                <h:commandButton class="btn btn-success" action="#{laborerPortalController.doCreateCheckout()}" value="Checkout" />
+            </h:form>
+        </h:panelGroup>
+
+        <h:panelGroup id="checkout-table">
+            <h3 class="table-header">Checkout List</h3>
+            <h:form class="table-header">
+                <h:panelGroup class="input-group">
+                    <h:inputText class="form-control" value='#{laborerPortalController.checkoutId}'>
+                        <f:passThroughAttribute name="placeholder" value="Enter employee id..."/>
+                    </h:inputText>
+                    <span class="input-group-btn">
+                        <h:commandButton class="btn btn-primary" value="Search Check Out List!" action='#{laborerPortalController.doFindCheckout(checkoutId)}'/>
+                    </span>
+                </h:panelGroup>
+            </h:form>
+            <h:dataTable class="table table-hover" value="#{laborerPortalController.checkout}" var="checkout">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="CHECKOUT ID" />
+                    </f:facet>
+                    <h:outputText value="#{checkout.id}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="EMPLOYEE ID" />
+                    </f:facet>
+                    <h:outputText value="#{checkout.employee.id}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="EMPLOYEE NAME" />
+                    </f:facet>
+                    <h:outputText value="#{checkout.employee.firstName}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="CHECKOUT DATE" />
+                    </f:facet>
+                    <h:outputText value="#{checkout.checkoutDate}">
+                        <f:convertDateTime type="both" pattern="yyyy-MM-dd hh:mm:ss.SS" />
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="RETURN DATE" />
+                    </f:facet>
+                    <h:outputText value="#{checkout.returnDate}">
+                        <f:convertDateTime type="both" pattern="yyyy-MM-dd hh:mm:ss.SS" />
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="TOOL ID" />
+                    </f:facet>
+                    <h:outputText value="#{checkout.tool.serialNumber}" />
+                </h:column>
+                <h:column>
+                    <h:form>
+                        <h:commandButton class="btn btn-success btn-xs" action="#{laborerPortalController.doCheckIn(checkout)}" value="Check In"/>
+                    </h:form>
+                </h:column>
+            </h:dataTable>
+        </h:panelGroup>
+    </ui:define>
+</ui:composition>

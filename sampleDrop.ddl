@@ -1,0 +1,8 @@
+ALTER TABLE employee DROP FOREIGN KEY FK_employee_DEPARTMENT_ID
+ALTER TABLE maintenance DROP FOREIGN KEY FK_maintenance_TOOL_ID
+ALTER TABLE maintenance DROP FOREIGN KEY FK_maintenance_EQUIPMENT_ID
+DROP TABLE employee
+DROP TABLE equipment
+DROP TABLE maintenance
+DROP TABLE department
+DROP TABLE tool

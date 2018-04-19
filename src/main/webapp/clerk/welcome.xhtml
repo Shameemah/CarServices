@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../WEB-INF/templates/authenticatedTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">
+        Clerk Portal
+    </ui:define>
+
+    <ui:define name="content">
+        <h2 class="portal-header">Welcome #{loginController.remoteUser}<small>You can view, add and edit tools, equipment, car parts and car service info here</small></h2>
+        <section id="maintenance-info" >
+            <h3 class="table-header">Car Repair Information</h3>
+            <h:form class="table-header">
+                <h:panelGroup class="input-group">
+                    <h:inputText class="form-control" value='#{clerkPortalController.maintenanceId}'>
+                        <f:passThroughAttribute name="placeholder" value="Enter maintenance id..."/>
+                    </h:inputText>
+                    <span class="input-group-btn">
+                        <h:commandButton class="btn btn-primary" value="Search Maintenance!" action='#{clerkPortalController.doFindMaintenance(maintenanceId)}'/>
+                    </span>
+                </h:panelGroup>
+            </h:form>
+            <h:form class="table-header">
+                <h:commandButton class="add btn btn-success btn-sm" action="#{clerkPortalController.doCreateMaintenance()}" value="New Maintenance Entry"/>
+            </h:form>
+            <h:dataTable class="table table-hover" value="#{clerkPortalController.maintenance}" var="maintenance">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="MAINTENANCE ID" />
+                    </f:facet>
+                    <h:outputText value="#{maintenance.id}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="PART ID" />
+                    </f:facet>
+                    <h:outputText value="#{maintenance.parts.serialNumber}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="DUE DATE" />
+                    </f:facet>
+                    <h:outputText value="#{maintenance.dueDate}">
+                        <f:convertDateTime pattern="yyyy-MM-dd"/>
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="MAINTENANCE DONE?" />
+                    </f:facet>
+                    <h:outputText value="#{maintenance.maintenanceDone ? 'Yes' : 'No'}" />
+                </h:column>
+                <h:column>
+                    <h:form>
+                        <h:commandButton class="edit btn btn-default btn-xs" action="#{clerkPortalController.doUpdateMaintenance(maintenance)}" value="Edit"/>
+                        <h:commandButton class="view btn btn-default btn-xs" action="#{clerkPortalController.doViewMaintenance(maintenance)}" value="View"/>
+                    </h:form>
+                </h:column>
+            </h:dataTable>
+        </section>
+
+        <section id="part-info" >
+            <h3 class="table-header">Available Car Parts</h3>
+            <h:form class="table-header">
+                <h:panelGroup class="input-group">
+                    <h:inputText class="form-control" value='#{clerkPortalController.partId}'>
+                        <f:passThroughAttribute name="placeholder" value="Enter part serial number..."/>
+                    </h:inputText>
+                    <span class="input-group-btn">
+                        <h:commandButton class="btn btn-primary" value="Search Parts!" action='#{clerkPortalController.doFindPart(partId)}'/>
+                    </span>
+                </h:panelGroup>
+            </h:form>
+            <h:form class="table-header">
+                <h:commandButton class="add btn btn-success btn-sm" action="#{clerkPortalController.doCreatePart()}" value="New Car Part"/>
+            </h:form>
+            <h:dataTable class="table table-hover" value="#{clerkPortalController.parts}" var="parts">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="SERIAL NUMBER" />
+                    </f:facet>
+                    <h:outputText value="#{parts.serialNumber}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="BRAND NAME" />
+                    </f:facet>
+                    <h:outputText value="#{parts.brandName}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="CATEGORY" />
+                    </f:facet>
+                    <h:outputText value="#{parts.category}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="TYPE" />
+                    </f:facet>
+                    <h:outputText value="#{parts.type}" />
+                </h:column>
+                <h:column>
+                    <h:form>
+                        <h:commandButton class="delete btn btn-danger btn-xs" action="#{clerkPortalController.doDeletePart(parts)}" value="Delete "/>
+                        <h:commandButton class="edit btn btn-default btn-xs" action="#{clerkPortalController.doUpdatePart(parts)}" value="Edit"/>
+                        <h:commandButton class="edit btn btn-default btn-xs" action="#{clerkPortalController.doViewPart(parts)}" value="View"/>    
+                    </h:form>
+                </h:column>
+            </h:dataTable>
+        </section>
+
+        <section id="tool-info" >
+            <h3 class="table-header">Available Tools/Equipment</h3>
+            <h:form class="table-header">
+                <h:panelGroup class="input-group">
+                    <h:inputText class="form-control" value='#{clerkPortalController.toolId}'>
+                        <f:passThroughAttribute name="placeholder" value="Enter tool serial number..."/>
+                    </h:inputText>
+                    <span class="input-group-btn">
+                        <h:commandButton class="btn btn-primary" value="Search Tools!" action='#{clerkPortalController.doFindTool(toolId)}'/>
+                    </span>
+                </h:panelGroup>
+            </h:form>
+            <h:form class="table-header">
+                <h:commandButton class="add btn btn-success btn-sm" action="#{clerkPortalController.doCreateTool()}" value="New Tool/Equipment"/>
+            </h:form>
+            <h:dataTable class="table table-hover" value="#{clerkPortalController.tool}" var="tool">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="SERIAL NUMBER" />
+                    </f:facet>
+                    <h:outputText value="#{tool.serialNumber}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="BRAND NAME" />
+                    </f:facet>
+                    <h:outputText value="#{tool.brandName}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="CATEGORY" />
+                    </f:facet>
+                    <h:outputText value="#{tool.category}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="TYPE" />
+                    </f:facet>
+                    <h:outputText value="#{tool.type}" />
+                </h:column>
+                <h:column>
+                    <h:form>
+                        <h:commandButton class="delete btn btn-danger btn-xs" action="#{clerkPortalController.doDeleteTool(tool)}" value="Delete "/>
+                        <h:commandButton class="edit btn btn-default btn-xs" action="#{clerkPortalController.doUpdateTool(tool)}" value="Edit"/>
+                        <h:commandButton class="edit btn btn-default btn-xs" action="#{clerkPortalController.doViewTool(tool)}" value="View"/>
+                    </h:form>
+                </h:column>
+            </h:dataTable>
+        </section>
+
+    </ui:define>
+
+</ui:composition>

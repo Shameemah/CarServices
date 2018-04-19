@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="checkout" required="true" type="edu.iit.sat.itmd4515.sfuseini.domain.Checkout"/> 
+        <cc:attribute name="action" required="false" method-signature="java.lang.String action()"/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:form>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="checkoutId" value="Checkout ID" />
+                <h:inputText  class="form-control" id="checkoutId" readonly="true" value="#{cc.attrs.checkout.id}"/>
+                <h:inputHidden class="form-control" id="checkoutIdLabel" value="#{cc.attrs.checkout.id}"/>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="employeeId" value="Employee ID" />
+                <h:inputText  class="form-control" id="employeeId" readonly="true" value="#{cc.attrs.checkout.employee.id}"/>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="checkoutDate" value="Checkout Date" />
+                <h:inputText  class="form-control" id="checkoutDate" readonly="true" value="#{cc.attrs.checkout.checkoutDate}">
+                    <f:convertDateTime type="both" pattern="yyyy-MM-dd hh:mm:ss.SS" />
+                </h:inputText>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel rendered="false" for="returnDate" value="Return Date" />
+                <h:inputText rendered="false" class="form-control" id="returnDate" value="#{cc.attrs.checkout.returnDate}">
+                    <f:convertDateTime type="both" pattern="yyyy-MM-dd hh:mm:ss.SS" />
+                </h:inputText>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="toolId" value="Tool ID" />
+                <h:selectOneMenu disabled="true" class="form-control" id="toolId" value="#{cc.attrs.checkout.tool}" converter="toolConverter">
+                    <f:selectItems value="#{toolService.findAll()}" var="tool" itemLabel="#{cc.attrs.checkout.tool.serialNumber}" itemValue="#{tool}" />
+                </h:selectOneMenu>    
+            </h:panelGroup>
+            <h:button class="btn btn-default" outcome="/laborer/welcome.xhtml" value="Back" />
+            <h:commandButton class="btn btn-success" action="#{cc.attrs.action}" value="Check In"/>
+        </h:form>
+    </cc:implementation>
+</html>

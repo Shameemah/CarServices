@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="part" required="true" type="edu.iit.sat.itmd4515.sfuseini.domain.Parts"/> 
+        <cc:attribute name="readonly" type="java.lang.Boolean" default="true" required="false"/>
+        <cc:attribute name="disabled" type="java.lang.Boolean" default="true" required="false"/>
+        <cc:attribute name="action" required="false" method-signature="java.lang.String action()"/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:form>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="partId" value="Serial Number" />
+                <h:inputText class="form-control" id="partId" disabled="#{cc.attrs.disabled ? 'true' : 'false'}" readonly="#{cc.attrs.readonly ? 'true' : 'false'}" value="#{cc.attrs.part.serialNumber}"/>
+                <h:inputHidden rendered="#{cc.attrs.disabled}" class="form-control" id="partIdHidden" value="#{cc.attrs.part.serialNumber}"/>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="brandName" value="Brand Name" />
+                <h:inputText class="form-control" id="brandName" readonly="#{cc.attrs.readonly ? 'true' : 'false'}" value="#{cc.attrs.part.brandName}"/>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="category" value="Category" />
+                <h:selectOneMenu class="form-control" id="category" value="#{cc.attrs.part.category}" disabled="#{cc.attrs.readonly ? 'true' : 'false'}">
+                    <f:selectItem itemLabel="Auto Racing Equipment" itemValue="Auto Racing Equipment" />
+                    <f:selectItem itemLabel="Autombile Axles" itemValue="Autombile Axles" />
+                    <f:selectItem itemLabel="Automotive Accessories" itemValue="Automotive Accessories" />
+                    <f:selectItem itemLabel="Automotive Body Parts" itemValue="Automotive Body Parts" />
+                    <f:selectItem itemLabel="Continuosly Variable Transmissions" itemValue="Continuosly Variable Transmissions" />
+                    <f:selectItem itemLabel="Dashboard Head Units" itemValue="Dashboard Head Units" />
+                    <f:selectItem itemLabel="Automotive Electronics" itemValue="Automotive Electronics" />
+                    <f:selectItem itemLabel="Automotive Part Retailers" itemValue="Automotive Part Retailers" />
+                    <f:selectItem itemLabel="Automotive Part Suppliers" itemValue="Automotive Part Suppliers" />
+                    <f:selectItem itemLabel="Automobile Transmissions" itemValue="Automobile Transmissions" />
+                    <f:selectItem itemLabel="Automobile Wheels" itemValue="Automobile Wheels" />
+                    <f:selectItem itemLabel="Automotive Part Stubs" itemValue="Automotive Part Stubs" />
+                </h:selectOneMenu>    
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="type" value="Type" />
+                <h:inputText class="form-control" id="type" readonly="#{cc.attrs.readonly ? 'true' : 'false'}" value="#{cc.attrs.part.type}"/>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="model" value="Model" />
+                <h:inputText class="form-control" id="model" readonly="#{cc.attrs.readonly ? 'true' : 'false'}" value="#{cc.attrs.part.model}"/>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="chassisNumber" value="Chassis Number" />
+                <h:inputText class="form-control" id="chassisNumber" readonly="#{cc.attrs.readonly ? 'true' : 'false'}" value="#{cc.attrs.part.chassisNumber}"/>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="engineNumber" value="Engine Number" />
+                <h:inputText class="form-control" id="engineNumber" readonly="#{cc.attrs.readonly ? 'true' : 'false'}" value="#{cc.attrs.part.engineNumber}"/>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="registrationNumber" value="Registration Number" />
+                <h:inputText class="form-control" id="registrationNumber" readonly="#{cc.attrs.readonly ? 'true' : 'false'}" value="#{cc.attrs.part.registrationNumber}"/>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="odometerReading" value="Odometer Reading" />
+                <h:inputText class="form-control" id="odometerReading" readonly="#{cc.attrs.readonly ? 'true' : 'false'}" value="#{cc.attrs.part.odometerReading}"/>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="manufactureDate" value="Manufacture date" />
+                <h:inputText class="form-control" id="manufactureDate" readonly="#{cc.attrs.readonly ? 'true' : 'false'}" value="#{cc.attrs.part.manufactureDate}" a:placeholer="yyyy-MM-dd">
+                    <f:convertDateTime pattern="yyyy-MM-dd"/>
+                </h:inputText>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="purchaseDate" value="Purchase date" />
+                <h:inputText class="form-control" id="purchaseDate" readonly="#{cc.attrs.readonly ? 'true' : 'false'}" value="#{cc.attrs.part.purchaseDate}" a:placeholer="yyyy-MM-dd">
+                    <f:convertDateTime pattern="yyyy-MM-dd"/>
+                </h:inputText>
+            </h:panelGroup>
+            <h:button class="btn btn-default" outcome="/clerk/welcome.xhtml" value="Back" />
+            <h:commandButton rendered="#{not cc.attrs.readonly}" class="btn btn-success" action="#{cc.attrs.action}" value="Save Changes" />
+        </h:form>
+    </cc:implementation>
+</html>

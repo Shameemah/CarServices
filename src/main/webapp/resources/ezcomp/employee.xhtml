@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="employee" required="true" type="edu.iit.sat.itmd4515.sfuseini.domain.Employee"/> 
+        <cc:attribute name="readonly" type="java.lang.Boolean" default="true" required="false"/>
+        <cc:attribute name="disabled" type="java.lang.Boolean" default="true" required="false"/>
+        <cc:attribute name="action" required="false" method-signature="java.lang.String action()"/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:form>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel rendered="#{cc.attrs.readonly}" for="employeeId" value="Employee ID" />
+                <h:inputText rendered="#{cc.attrs.readonly}" class="form-control" id="employeeIdLabel" readonly="true" value="#{cc.attrs.employee.id}"/>
+                <h:inputHidden class="form-control" id="employeeId" value="#{cc.attrs.employee.id}"/>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel rendered="#{cc.attrs.readonly}" for="username" value="Username" />
+                <h:inputText rendered="#{cc.attrs.readonly}" class="form-control" id="username" readonly="true" value="#{cc.attrs.employee.user.userName}"/>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="firstName" value="First Name" />
+                <h:inputText class="form-control" id="firstName" readonly="#{cc.attrs.readonly ? 'true' : 'false'}" value="#{cc.attrs.employee.firstName}"/>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="lastName" value="Last Name" />
+                <h:inputText class="form-control" id="lastName" readonly="#{cc.attrs.readonly ? 'true' : 'false'}" value="#{cc.attrs.employee.lastName}"/>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="role" value="Role" />
+                <h:inputText class="form-control" id="role" readonly="#{cc.attrs.readonly ? 'true' : 'false'}" value="#{cc.attrs.employee.role}"/>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="salary" value="Salary" />
+                <h:inputText class="form-control" id="salary" readonly="#{cc.attrs.readonly ? 'true' : 'false'}" value="#{cc.attrs.employee.salary}"/>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="hireDate" value="Hire date" />
+                <h:inputText class="form-control" id="hireDate" readonly="#{cc.attrs.readonly ? 'true' : 'false'}" value="#{cc.attrs.employee.hireDate}" a:placeholer="yyyy-MM-dd">
+                    <f:convertDateTime pattern="yyyy-MM-dd"/>
+                    <f:passThroughAttribute name="placeholder" value="yyyy-MM-dd"/>
+                </h:inputText>
+            </h:panelGroup>
+            <h:panelGroup layout="block" class="form-group">
+                <h:outputLabel for="departmentId" value="Department" />
+                <h:selectOneMenu class="form-control" id="departmentId" value="#{cc.attrs.employee.department}" disabled="#{cc.attrs.readonly ? 'true' : 'false'}" converter="departmentConverter">
+                    <f:selectItems value="#{departmentService.findAll()}" var="department" itemLabel="#{department.departmentName}" itemValue="#{department.departmentId}" />
+                </h:selectOneMenu>    
+            </h:panelGroup>
+            <h:button class="btn btn-default" outcome="/manager/welcome.xhtml" value="Back" />
+            <h:commandButton rendered="#{not cc.attrs.readonly}" class="btn btn-success" action="#{cc.attrs.action}" value="Save Changes" />
+        </h:form>
+    </cc:implementation>
+</html>
