@@ -18,8 +18,8 @@
         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
         <init-param>
             <description>Multiple packages, separated by semicolon(;), can be specified in param-value</description>
-            <param-name>com.sun.jersey.config.property.packages</param-name>
-            <param-value>res</param-value>
+            <param-name>jersey.config.server.provider.packages</param-name>
+            <param-value>edu.iit.sat.itmd4515.sfuseini.domain.service</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
