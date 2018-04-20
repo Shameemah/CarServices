@@ -5,6 +5,7 @@
  */
 package edu.iit.sat.itmd4515.sfuseini.domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -27,7 +28,7 @@ import javax.validation.constraints.NotNull;
     ,
     @NamedQuery(name = "Tool.findByToolId", query = "select  t from Tool t where t.serialNumber = :serialNumber")
 })
-public class Tool {
+public class Tool implements Serializable {
 
     @Id
     @NotNull(message = "Serial number cannot be null")

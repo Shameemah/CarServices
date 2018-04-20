@@ -6,6 +6,7 @@
 package edu.iit.sat.itmd4515.sfuseini.domain;
 
 import edu.iit.sat.itmd4515.sfuseini.domain.security.User;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,7 +44,7 @@ import javax.validation.constraints.Past;
     ,
     @NamedQuery(name = "Employee.findByEmployeeId", query = "select  e from Employee e where e.id = :id")
 })
-public class Employee {
+public class Employee implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

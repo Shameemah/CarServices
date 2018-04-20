@@ -5,6 +5,7 @@
  */
 package edu.iit.sat.itmd4515.sfuseini.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -33,7 +34,7 @@ import javax.validation.constraints.NotNull;
     ,
     @NamedQuery(name = "Checkout.findByCheckoutId", query = "select  c from Checkout c where c.id = :id")
 })
-public class Checkout {
+public class Checkout implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

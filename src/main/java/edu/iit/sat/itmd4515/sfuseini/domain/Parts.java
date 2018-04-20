@@ -5,20 +5,27 @@
  */
 package edu.iit.sat.itmd4515.sfuseini.domain;
 
+import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,27 +38,40 @@ import javax.validation.constraints.Past;
     ,
     @NamedQuery(name = "Parts.findByPartsId", query = "select  p from Parts p where p.serialNumber = :serialNumber")
 })
-public class Parts {
+public class Parts implements Serializable {
 
     @Id
+    @Basic(optional = false)
     @NotNull(message = "Serial number cannot be null")
+    @Column(name = "SERIALNUMBER")
     private Long serialNumber;
-    private String type;
-    private String category;
+    @Size(max = 255)
+    @Column(name = "BRANDNAME")
     private String brandName;
-    private String model;
-    private int registrationNumber;
-    private int engineNumber;
-    private int chassisNumber;
-    private double odometerReading;
-
+    @Size(max = 255)
+    @Column(name = "CATEGORY")
+    private String category;
+    @Column(name = "CHASSISNUMBER")
+    private Integer chassisNumber;
+    @Column(name = "ENGINENUMBER")
+    private Integer engineNumber;
+    @Column(name = "MANUFACTUREDATE")
     @Temporal(TemporalType.DATE)
-    @Past
     private Date manufactureDate;
-
+    @Size(max = 255)
+    @Column(name = "MODEL")
+    private String model;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "ODOMETERREADING")
+    private Double odometerReading;
+    @Column(name = "PURCHASEDATE")
     @Temporal(TemporalType.DATE)
-    @Past
     private Date purchaseDate;
+    @Column(name = "REGISTRATIONNUMBER")
+    private Integer registrationNumber;
+    @Size(max = 255)
+    @Column(name = "TYPE")
+    private String type;
 
     @OneToOne(mappedBy = "parts", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     private Repairs repairs;
@@ -320,5 +340,4 @@ public class Parts {
     public String toString() {
         return "Part{" + "serialNumber=" + serialNumber + ", type=" + type + ", category=" + category + ", brandName=" + brandName + ", model=" + model + ", registrationNumber=" + registrationNumber + ", engineNumber=" + engineNumber + ", chassisNumber=" + chassisNumber + ", odometerReading=" + odometerReading + ", manufactureDate=" + manufactureDate + ", purchaseDate=" + purchaseDate + '}';
     }
-
 }

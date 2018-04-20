@@ -5,6 +5,7 @@
  */
 package edu.iit.sat.itmd4515.sfuseini.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,7 +29,7 @@ import javax.validation.constraints.NotNull;
     ,
     @NamedQuery(name = "Department.findByDepartmentId", query = "select  d from Department d where d.departmentId = :departmentId")
 })
-public class Department {
+public class Department implements Serializable {
 
     @Id
     @NotNull(message = "Department ID cannot be null")
