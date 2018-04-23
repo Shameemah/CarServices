@@ -33,18 +33,29 @@ public abstract class AbstractFacade<T> {
         Validator validator = factory.getValidator();
         Set<ConstraintViolation<T>> constraintViolations = validator.validate(entity);
         if(constraintViolations.size() > 0){
-        Iterator<ConstraintViolation<T>> iterator = constraintViolations.iterator();
-        while(iterator.hasNext()){
-            ConstraintViolation<T> cv = iterator.next();
-            System.err.println(cv.getRootBeanClass().getName()+"."+cv.getPropertyPath() + " " +cv.getMessage());
+            Iterator<ConstraintViolation<T>> iterator = constraintViolations.iterator();
+            while(iterator.hasNext()){
+                ConstraintViolation<T> cv = iterator.next();
+                System.err.println(cv.getRootBeanClass().getName()+"."+cv.getPropertyPath() + " " +cv.getMessage());
+            }
+        }else{
+            getEntityManager().persist(entity);
         }
-    }else{
-        getEntityManager().persist(entity);
-    }
     }
 
     public void edit(T entity) {
-        getEntityManager().merge(entity);
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<T>> constraintViolations = validator.validate(entity);
+        if(constraintViolations.size() > 0){
+            Iterator<ConstraintViolation<T>> iterator = constraintViolations.iterator();
+            while(iterator.hasNext()){
+                ConstraintViolation<T> cv = iterator.next();
+                System.err.println(cv.getRootBeanClass().getName()+"."+cv.getPropertyPath() + " " +cv.getMessage());
+            }
+        }else{
+            getEntityManager().merge(entity);
+        }
     }
 
     public void remove(T entity) {

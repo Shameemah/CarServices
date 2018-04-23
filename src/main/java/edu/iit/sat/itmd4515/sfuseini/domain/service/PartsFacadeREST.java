@@ -39,9 +39,7 @@ public class PartsFacadeREST extends AbstractFacade<Parts> {
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(Parts entity) {
-        System.out.println(entity.toString());
-        Parts p = new Parts(entity.getSerialNumber(), entity.getType(), entity.getCategory(), entity.getBrandName(), entity.getModel(), entity.getRegistrationNumber(), entity.getEngineNumber(), entity.getChassisNumber(),entity.getOdometerReading(), entity.getManufactureDate(), entity.getPurchaseDate());
-        super.create(p);
+        super.create(entity);
     }
 
     @PUT
