@@ -66,6 +66,7 @@ public class PartsFacadeREST extends AbstractFacade<Parts> {
     @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Parts> findAll() {
+        System.out.println(super.findAll().toString());
         return super.findAll();
     }
 

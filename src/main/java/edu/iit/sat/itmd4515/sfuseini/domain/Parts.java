@@ -6,7 +6,9 @@
 package edu.iit.sat.itmd4515.sfuseini.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -16,13 +18,16 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
 
 /**
  *
@@ -71,8 +76,10 @@ public class Parts implements Serializable {
     @Column(name = "TYPE")
     private String type;
 
-    @OneToOne(mappedBy = "parts", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-    private Repairs repairs;
+    @OneToMany(mappedBy = "parts", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @XmlElement
+    @XmlInverseReference(mappedBy = "parts")
+    private List<Repairs> repairs = new ArrayList<>();
 
     /**
      *
@@ -196,70 +203,38 @@ public class Parts implements Serializable {
         this.model = model;
     }
 
-    /**
-     *
-     * @return
-     */
-    public int getRegistrationNumber() {
-        return registrationNumber;
-    }
-
-    /**
-     *
-     * @param registrationNumber
-     */
-    public void setRegistrationNumber(int registrationNumber) {
-        this.registrationNumber = registrationNumber;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getEngineNumber() {
-        return engineNumber;
-    }
-
-    /**
-     *
-     * @param engineNumber
-     */
-    public void setEngineNumber(int engineNumber) {
-        this.engineNumber = engineNumber;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getChassisNumber() {
+    public Integer getChassisNumber() {
         return chassisNumber;
     }
 
-    /**
-     *
-     * @param chassisNumber
-     */
-    public void setChassisNumber(int chassisNumber) {
+    public void setChassisNumber(Integer chassisNumber) {
         this.chassisNumber = chassisNumber;
     }
 
-    /**
-     *
-     * @return
-     */
-    public double getOdometerReading() {
+    public Integer getEngineNumber() {
+        return engineNumber;
+    }
+
+    public void setEngineNumber(Integer engineNumber) {
+        this.engineNumber = engineNumber;
+    }
+
+    public Double getOdometerReading() {
         return odometerReading;
     }
 
-    /**
-     *
-     * @param odometerReading
-     */
-    public void setOdometerReading(double odometerReading) {
+    public void setOdometerReading(Double odometerReading) {
         this.odometerReading = odometerReading;
     }
 
+    public Integer getRegistrationNumber() {
+        return registrationNumber;
+    }
+
+    public void setRegistrationNumber(Integer registrationNumber) {
+        this.registrationNumber = registrationNumber;
+    }
+   
     /**
      *
      * @return
@@ -292,22 +267,17 @@ public class Parts implements Serializable {
         this.purchaseDate = purchaseDate;
     }
 
-    /**
-     *
-     * @return
-     */
-    public Repairs getRepairs() {
+    public List<Repairs> getRepairs() {
         return repairs;
     }
 
     /**
      *
-     * @param repairs
+     * @return
      */
-    public void setRepairs(Repairs repairs) {
+    public void setRepairs(List<Repairs> repairs) {
         this.repairs = repairs;
     }
-    
 
     @Override
     public int hashCode() {
