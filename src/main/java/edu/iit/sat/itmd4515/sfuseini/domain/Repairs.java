@@ -5,6 +5,7 @@
  */
 package edu.iit.sat.itmd4515.sfuseini.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Future;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -30,7 +32,8 @@ import javax.validation.constraints.Future;
     ,
     @NamedQuery(name = "Repairs.findByRepairId", query = "select  r from Repairs r where r.id = :id")
 })
-public class Repairs {
+@XmlRootElement
+public class Repairs implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

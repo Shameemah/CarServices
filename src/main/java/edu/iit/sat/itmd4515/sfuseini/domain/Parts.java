@@ -6,7 +6,6 @@
 package edu.iit.sat.itmd4515.sfuseini.domain;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Basic;
@@ -17,15 +16,13 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -38,6 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
     ,
     @NamedQuery(name = "Parts.findByPartsId", query = "select  p from Parts p where p.serialNumber = :serialNumber")
 })
+@XmlRootElement
 public class Parts implements Serializable {
 
     @Id
