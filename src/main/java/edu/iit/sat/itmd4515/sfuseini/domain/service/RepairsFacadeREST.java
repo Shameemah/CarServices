@@ -58,15 +58,14 @@ public class RepairsFacadeREST extends AbstractFacade<Repairs> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Repairs find(@PathParam("id") Long id) {
-        return super.find(id);
+    public String find(@PathParam("id") Long id) {
+        return super.find(id).toString();
     }
 
     @GET
-    @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Repairs> findAll() {
-        return super.findAll();
+    public String findAllRepairs() {
+        return super.findAll().toString();
     }
 
     @GET

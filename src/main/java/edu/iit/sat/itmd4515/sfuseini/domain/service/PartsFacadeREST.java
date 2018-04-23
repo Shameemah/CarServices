@@ -58,8 +58,8 @@ public class PartsFacadeREST extends AbstractFacade<Parts> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Parts find(@PathParam("id") Long id) {
-        return super.find(id);
+    public String find(@PathParam("id") Long id) {
+        return super.find(id).toString();
     }
 
     @GET
