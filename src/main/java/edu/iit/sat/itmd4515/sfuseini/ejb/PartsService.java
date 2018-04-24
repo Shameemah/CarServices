@@ -10,6 +10,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -67,7 +69,8 @@ public class PartsService extends BaseService<Parts> {
             Date manufactureDate = df.parse(ar[9].substring(ar[9].lastIndexOf("=") + 1));
             Date purchaseDate = df.parse(ar[10].substring(ar[10].lastIndexOf("=") + 1));
 
-            p = new Parts(serialNum, type, category, brandName, model, registrationNum, engineNum, chassisNum, odometerReading, manufactureDate, purchaseDate);
+            p = new Parts(serialNum, type, category, brandName, model, registrationNum, engineNum, 
+                    chassisNum, odometerReading, manufactureDate, purchaseDate);
 
             } catch (Exception e) {
             System.out.println(e);
@@ -81,6 +84,25 @@ public class PartsService extends BaseService<Parts> {
      */
     @Override
     public List<Parts> findAll() {
+        DefaultHttpClient httpclient = new DefaultHttpClient();
+        List<Parts> partsList = new ArrayList<>();
+        
+         try {
+            HttpGet getRequest = new HttpGet("http://localhost:8080/CarServices/webresources/parts/");
+            getRequest.addHeader("accept", "application/json");
+            HttpResponse httpResponse = httpclient.execute(getRequest);
+            HttpEntity entity = httpResponse.getEntity();
+            BufferedReader br = new BufferedReader(
+                         new InputStreamReader((entity.getContent())));
+            String output = br.readLine().replace("[", "").replace("]", "");
+            String[] ar=output.split("(?<=[}]),");
+            List<String> arList = Arrays.asList(ar);
+            partsList = (List<Parts>)(List<?>)arList;
+
+            } catch (Exception e) {
+            System.out.println(e);
+        }
+         
         return getEntityManager().createNamedQuery("Parts.findAll", Parts.class).getResultList();
     }
 
