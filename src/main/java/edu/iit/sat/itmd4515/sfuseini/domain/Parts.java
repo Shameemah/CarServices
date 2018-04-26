@@ -64,7 +64,6 @@ public class Parts implements Serializable {
     @Size(max = 255)
     @Column(name = "MODEL")
     private String model;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "ODOMETERREADING")
     private Double odometerReading;
     @Column(name = "PURCHASEDATE")
